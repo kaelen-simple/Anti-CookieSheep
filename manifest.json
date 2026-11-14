@@ -4,11 +4,11 @@
   "version": "1.2",
   "description": "Decidi tu chi bloccare: Meta, TikTok, X, Google e banner cookie.",
   "icons": {
-    "48": "Screenshot_20261114-100552.WhatsApp (1) (1).png",
-    "128": "Screenshot_20261114-100552.WhatsApp (1) (1).png"
+    "48": "preview.png",
+    "128": "preview.png"
   },
   "action": {
-    "default_icon": "Screenshot_20261114-100552.WhatsApp (1) (1).png",
+    "default_icon": "preview.png",
     "default_title": "Anti-CookieSheep - Pannello di Controllo",
     "default_popup": "popup.html"
   },
