@@ -1,84 +1,104 @@
-/* === CODESHEEP v1.2 - CONTROLLO RECINTI (SÌ/NO) === */
-
-const mappaRecinti = {
-  meta: new Array(1, 2),
-  google: new Array(3, 4, 5),
-  tiktok: new Array(6),
-  linkedin: new Array(7),
-  pinterest: new Array(8, 9),
-  x: new Array(10, 11),
-  snapchat: new Array(12, 13),
-  bing: new Array(14),
-  ads: new Array(15, 16, 17)
-};
-
-const gruppiTutti = new Array("cookie", "meta", "tiktok", "x", "google", "linkedin", "pinterest", "snapchat", "bing", "ads");
-
-document.addEventListener('DOMContentLoaded', async () => {
-  const dati = await chrome.storage.local.get('statoGregge');
-  let statoGregge = dati.statoGregge || {
-    cookie: true, meta: true, tiktok: true, x: true,
-    google: true, linkedin: true, pinterest: true,
-    snapchat: true, bing: true, ads: true
-  };
-
-  const pulsanti = document.querySelectorAll('.btn-toggle');
-
-  pulsanti.forEach(btn => {
-    const gruppo = btn.dataset.gruppo;
-    aggiornaGrafica(btn, statoGregge[gruppo]);
-
-    btn.addEventListener('click', async () => {
-      statoGregge[gruppo] = !statoGregge[gruppo];
-      aggiornaGrafica(btn, statoGregge[gruppo]);
-      await chrome.storage.local.set({ statoGregge });
-      aggiornaRegoleRete(statoGregge);
-    });
-  });
-
-  document.getElementById('blocca-tutto').addEventListener('click', async () => {
-    gruppiTutti.forEach(g => statoGregge[g] = true);
-    pulsanti.forEach(btn => aggiornaGrafica(btn, true));
-    await chrome.storage.local.set({ statoGregge });
-    aggiornaRegoleRete(statoGregge);
-  });
-
-  document.getElementById('consenti-tutto').addEventListener('click', async () => {
-    gruppiTutti.forEach(g => statoGregge[g] = false);
-    pulsanti.forEach(btn => aggiornaGrafica(btn, false));
-    await chrome.storage.local.set({ statoGregge });
-    aggiornaRegoleRete(statoGregge);
-  });
-});
-
-function aggiornaGrafica(btn, attivo) {
-  if (attivo) {
-    btn.textContent = "SÌ";
-    btn.classList.remove("no");
-    btn.classList.add("si");
-  } else {
-    btn.textContent = "NO";
-    btn.classList.remove("si");
-    btn.classList.add("no");
-  }
-}
-
-async function aggiornaRegoleRete(statoGregge) {
-  let daDisabilitare = new Array();
-  let daAbilitare = new Array();
-
-  for (const [gruppo, ids] of Object.entries(mappaRecinti)) {
-    if (statoGregge[gruppo]) {
-      daAbilitare.push(...ids);
-    } else {
-      daDisabilitare.push(...ids);
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 290px;
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 14px;
     }
-  }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .header img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .header h2 {
+      margin: 0;
+      font-size: 16px;
+      color: #38bdf8;
+    }
+    .sub {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+    .riga {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #1e293b;
+      font-size: 13px;
+    }
+    .riga:last-child { border-bottom: none; }
+    .btn-toggle {
+      padding: 4px 12px;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .si { background-color: #10b981; color: #022c22; }
+    .no { background-color: #ef4444; color: #ffffff; }
+    .azioni-globali {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .btn-globale {
+      flex: 1;
+      padding: 7px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    #blocca-tutto { background-color: #0284c7; color: white; }
+    #consenti-tutto { background-color: #334155; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="Screenshot_20261114-100552.WhatsApp (1) (1).png" alt="Sheep">
+    <div>
+      <h2>Anti-CookieSheep</h2>
+      <div class="sub">SÌ = Bloccato | NO = Consentito</div>
+    </div>
+  </div>
 
-  await chrome.declarativeNetRequest.updateStaticRules({
-    rulesetId: "blocco_tracker",
-    disableRuleIds: daDisabilitare,
-    enableRuleIds: daAbilitare
-  });
-}
+  <div id="lista-recinti">
+    <div class="riga"><span>🍪 Rifiuta Banner Cookie</span><button class="btn-toggle si" data-gruppo="cookie">SÌ</button></div>
+    <div class="riga"><span>📘 Meta Pixel (FB/IG)</span><button class="btn-toggle si" data-gruppo="meta">SÌ</button></div>
+    <div class="riga"><span>🎵 TikTok Pixel</span><button class="btn-toggle si" data-gruppo="tiktok">SÌ</button></div>
+    <div class="riga"><span>✖️ X (Twitter) Pixel</span><button class="btn-toggle si" data-gruppo="x">SÌ</button></div>
+    <div class="riga"><span>🔍 Google Ads & Analytics</span><button class="btn-toggle si" data-gruppo="google">SÌ</button></div>
+    <div class="riga"><span>💼 LinkedIn Tag</span><button class="btn-toggle si" data-gruppo="linkedin">SÌ</button></div>
+    <div class="riga"><span>📌 Pinterest Tag</span><button class="btn-toggle si" data-gruppo="pinterest">SÌ</button></div>
+    <div class="riga"><span>👻 Snapchat Pixel</span><button class="btn-toggle si" data-gruppo="snapchat">SÌ</button></div>
+    <div class="riga"><span>🪟 Microsoft / Bing UET</span><button class="btn-toggle si" data-gruppo="bing">SÌ</button></div>
+    <div class="riga"><span>🛒 Criteo / Taboola / Outbrain</span><button class="btn-toggle si" data-gruppo="ads">SÌ</button></div>
+  </div>
 
+  <div class="azioni-globali">
+    <button id="blocca-tutto" class="btn-globale">🛡️ Blocca Tutto</button>
+    <button id="consenti-tutto" class="btn-globale">🔓 Consenti Tutto</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+      
