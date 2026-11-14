@@ -1,1 +1,176 @@
-rules.json
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||connect.facebook.net",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://facebook.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "ping"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||google-analytics.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "ping"]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||doubleclick.net",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "ping"]
+    }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||googleadservices.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "ping"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://tiktok.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "ping"]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://licdn.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image"]
+    }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://pinterest.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "ping"]
+    }
+  },
+  {
+    "id": 9,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://pinimg.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image"]
+    }
+  },
+  {
+    "id": 10,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://ads-twitter.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image"]
+    }
+  },
+  {
+    "id": 11,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://twitter.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "ping"]
+    }
+  },
+  {
+    "id": 12,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||sc-static.net",
+      "resourceTypes": ["script", "xmlhttprequest", "image"]
+    }
+  },
+  {
+    "id": 13,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://snapchat.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "ping"]
+    }
+  },
+  {
+    "id": 14,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://bing.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "ping"]
+    }
+  },
+  {
+    "id": 15,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||static.criteo.net",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image"]
+    }
+  },
+  {
+    "id": 16,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://taboola.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "ping"]
+    }
+  },
+  {
+    "id": 17,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||://outbrain.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image"]
+    }
+  },
+  {
+    "id": 18,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "transform": {
+          "queryTransform": {
+            "removeParams": [
+              "fbclid", "gclid", "msclkid", "ttclid", "twclid",
+              "epik", "ScCid", "li_fat_id", "utm_source", "utm_medium", "utm_campaign"
+            ]
+          }
+        }
+      }
+    },
+    "condition": {
+      "resourceTypes": ["main_frame"]
+    }
+  }
+]
+
