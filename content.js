@@ -8,8 +8,10 @@
   const paroleRifiuto = [
     "rifiuta tutto", "rifiuta tutti", "rifiuta",
     "continua senza accettare", "solo necessari", "solo essenziali",
-    "reject all", "decline all", "deny all", "necessary only", "continue without accepting"
+    "reject all", "reject", "decline all", "decline", "deny all", "deny",
+    "necessary only", "essential only", "continue without accepting"
   ];
+
 
   // Cerca i pulsanti anche dentro gli Shadow DOM (es. Iubenda, Cookiebot, OneTrust)
   function trovaTuttiGliElementi(radice = document) {
