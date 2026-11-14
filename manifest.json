@@ -1,1 +1,46 @@
-manifest.json
+{
+  "manifest_version": 3,
+  "name": "Anti-CookieSheep",
+  "version": "1.2",
+  "description": "Decidi tu chi bloccare: Meta, TikTok, X, Google e banner cookie.",
+  "icons": {
+    "48": "Screenshot_20261114-100552.WhatsApp (1) (1).png",
+    "128": "Screenshot_20261114-100552.WhatsApp (1) (1).png"
+  },
+  "action": {
+    "default_icon": "Screenshot_20261114-100552.WhatsApp (1) (1).png",
+    "default_title": "Anti-CookieSheep - Pannello di Controllo",
+    "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "anti-cookiesheep@tuodominio.local",
+      "strict_min_version": "113.0"
+    }
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "blocco_tracker",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ]
+}
+
