@@ -1,11 +1,10 @@
-/* --- CODESHEEP v1.3 - MULTILINGUA & MOBILE READY --- */
+ /* --- CODESHEEP v1.4 - RIFIUTO COOKIE MULTILINGUA & MOBILE --- */
 
 (async function () {
   const dati = await chrome.storage.local.get('statoGregge');
   const attivo = dati.statoGregge ? dati.statoGregge.cookie !== false : true;
   if (!attivo) return;
 
-  // Parole di rifiuto nelle principali lingue (IT, EN, ES, FR, DE, PT)
   const paroleRifiuto = [
     // Italiano
     "rifiuta tutto", "rifiuta tutti", "rifiuta", "continua senza accettare",
@@ -23,14 +22,13 @@
     "rejeitar tudo", "rejeitar", "apenas necessários"
   ];
 
-  // Selettori CSS diretti dei banner più famosi al mondo (più veloce e sicuro del testo)
   const selettoriDiretti = [
-    '#onetrust-reject-all-handler',           // OneTrust (usatissimo ovunque)
-    '.qc-cmp2-summary-buttons button[mode="secondary"]', // Quantcast
-    '#CybotCookiebotDialogBodyButtonDecline', // Cookiebot
-    '.iubenda-cs-reject-btn',                 // Iubenda
-    '[data-testid="uc-deny-all-button"]',     // Usercentrics
-    '.didomi-continue-without-agreeing',      // Didomi
+    '#onetrust-reject-all-handler',
+    '.qc-cmp2-summary-buttons button[mode="secondary"]',
+    '#CybotCookiebotDialogBodyButtonDecline',
+    '.iubenda-cs-reject-btn',
+    '[data-testid="uc-deny-all-button"]',
+    '.didomi-continue-without-agreeing',
     'button[aria-label*="reject" i]',
     'button[aria-label*="rifiuta" i]'
   ];
@@ -46,7 +44,6 @@
   }
 
   function cliccaRifiuta() {
-    // 1. Prova prima i selettori diretti ultra-rapidi
     for (const sel of selettoriDiretti) {
       const btn = document.querySelector(sel);
       if (btn && btn.offsetParent !== null) {
@@ -55,10 +52,9 @@
       }
     }
 
-    // 2. Cerca per testo in tutte le lingue (anche negli Shadow DOM)
     const elementi = trovaTuttiGliElementi();
     for (const el of elementi) {
-      if (el.offsetParent === null) continue; // Ignora pulsanti invisibili
+      if (el.offsetParent === null) continue;
       const testo = (el.innerText || el.value || el.getAttribute('aria-label') || "").trim().toLowerCase();
       if (testo && testo.length < 40 && paroleRifiuto.some(p => testo === p || testo.startsWith(p))) {
         el.click();
@@ -76,4 +72,3 @@
     }
   }, 600);
 })();
-
