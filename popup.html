@@ -2,16 +2,20 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      width: 290px;
+      width: 100%;
+      min-width: 280px;
+      max-width: 360px;
       background-color: #0f172a;
       color: #f8fafc;
       font-family: system-ui, -apple-system, sans-serif;
       margin: 0;
       padding: 14px;
+      box-sizing: border-box;
     }
-    .header {
+    .intestazione {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -19,12 +23,13 @@
       padding-bottom: 10px;
       margin-bottom: 10px;
     }
-    .header img {
+    .intestazione img {
       width: 36px;
       height: 36px;
       border-radius: 8px;
+      object-fit: cover;
     }
-    .header h2 {
+    .intestazione h2 {
       margin: 0;
       font-size: 16px;
       color: #38bdf8;
@@ -32,26 +37,26 @@
     .sub {
       font-size: 11px;
       color: #94a3b8;
-      margin-bottom: 6px;
+      margin-top: 2px;
     }
     .riga {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 0;
+      padding: 8px 0;
       border-bottom: 1px solid #1e293b;
       font-size: 13px;
     }
     .riga:last-child { border-bottom: none; }
     .btn-toggle {
-      padding: 4px 12px;
+      padding: 6px 14px;
       border: none;
       border-radius: 12px;
       font-weight: bold;
-      font-size: 11px;
+      font-size: 12px;
       cursor: pointer;
     }
-    .si { background-color: #10b981; color: #022c22; }
+    .si { background-color: #10b981; color: #052e16; }
     .no { background-color: #ef4444; color: #ffffff; }
     .azioni-globali {
       display: flex;
@@ -60,20 +65,21 @@
     }
     .btn-globale {
       flex: 1;
-      padding: 7px;
+      padding: 10px 8px;
       border: none;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 11px;
+      font-size: 12px;
       cursor: pointer;
+      color: #ffffff;
     }
-    #blocca-tutto { background-color: #0284c7; color: white; }
-    #consenti-tutto { background-color: #334155; color: #cbd5e1; }
+    #blocca-tutto { background-color: #0284c7; }
+    #consenti-tutto { background-color: #334155; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <img src="Screenshot_20261114-100552.WhatsApp (1) (1).png" alt="Sheep">
+  <div class="intestazione">
+    <img src="preview.png" alt="Logo">
     <div>
       <h2>Anti-CookieSheep</h2>
       <div class="sub">SÌ = Bloccato | NO = Consentito</div>
@@ -81,24 +87,23 @@
   </div>
 
   <div id="lista-recinti">
-    <div class="riga"><span>🍪 Rifiuta Banner Cookie</span><button class="btn-toggle si" data-gruppo="cookie">SÌ</button></div>
-    <div class="riga"><span>📘 Meta Pixel (FB/IG)</span><button class="btn-toggle si" data-gruppo="meta">SÌ</button></div>
-    <div class="riga"><span>🎵 TikTok Pixel</span><button class="btn-toggle si" data-gruppo="tiktok">SÌ</button></div>
-    <div class="riga"><span>✖️ X (Twitter) Pixel</span><button class="btn-toggle si" data-gruppo="x">SÌ</button></div>
-    <div class="riga"><span>🔍 Google Ads & Analytics</span><button class="btn-toggle si" data-gruppo="google">SÌ</button></div>
-    <div class="riga"><span>💼 LinkedIn Tag</span><button class="btn-toggle si" data-gruppo="linkedin">SÌ</button></div>
-    <div class="riga"><span>📌 Pinterest Tag</span><button class="btn-toggle si" data-gruppo="pinterest">SÌ</button></div>
-    <div class="riga"><span>👻 Snapchat Pixel</span><button class="btn-toggle si" data-gruppo="snapchat">SÌ</button></div>
-    <div class="riga"><span>🪟 Microsoft / Bing UET</span><button class="btn-toggle si" data-gruppo="bing">SÌ</button></div>
-    <div class="riga"><span>🛒 Criteo / Taboola / Outbrain</span><button class="btn-toggle si" data-gruppo="ads">SÌ</button></div>
+    <div class="riga"><span>🍪 Rifiuto Cookie Auto</span><button class="btn-toggle" data-id="cookie">SÌ</button></div>
+    <div class="riga"><span>📘 Meta Pixel (FB/IG)</span><button class="btn-toggle" data-id="meta">SÌ</button></div>
+    <div class="riga"><span>🎵 TikTok Pixel</span><button class="btn-toggle" data-id="tiktok">SÌ</button></div>
+    <div class="riga"><span>✖️ X Pixel (Twitter)</span><button class="btn-toggle" data-id="x">SÌ</button></div>
+    <div class="riga"><span>🔍 Google Ads & Analytics</span><button class="btn-toggle" data-id="google">SÌ</button></div>
+    <div class="riga"><span>💼 LinkedIn Tag</span><button class="btn-toggle" data-id="linkedin">SÌ</button></div>
+    <div class="riga"><span>📌 Pinterest Tag</span><button class="btn-toggle" data-id="pinterest">SÌ</button></div>
+    <div class="riga"><span>👻 Snapchat Pixel</span><button class="btn-toggle" data-id="snapchat">SÌ</button></div>
+    <div class="riga"><span>🪟 Microsoft / Bing</span><button class="btn-toggle" data-id="bing">SÌ</button></div>
+    <div class="riga"><span>🛒 Criteo / Taboola</span><button class="btn-toggle" data-id="criteo">SÌ</button></div>
   </div>
 
   <div class="azioni-globali">
-    <button id="blocca-tutto" class="btn-globale">🛡️ Blocca Tutto</button>
-    <button id="consenti-tutto" class="btn-globale">🔓 Consenti Tutto</button>
+    <button id="blocca-tutto" class="btn-globale">Blocca Tutto</button>
+    <button id="consenti-tutto" class="btn-globale">Consenti Tutto</button>
   </div>
 
   <script src="popup.js"></script>
 </body>
 </html>
-      
