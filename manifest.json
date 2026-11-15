@@ -1,34 +1,39 @@
 {
   "manifest_version": 3,
   "name": "Anti-CookieSheep",
-  "version": "1.2",
-  "description": "Decidi tu chi bloccare: Meta, TikTok, X, Google e banner cookie.",
+  "version": "1.4",
+  "description": "Decidi tu chi bloccare: Meta, TikTok, Google, cookie banner in tutte le lingue e Scudo IP/HTTPS.",
   "icons": {
     "48": "preview.png",
     "128": "preview.png"
   },
   "action": {
     "default_icon": "preview.png",
-    "default_title": "Anti-CookieSheep - Pannello di Controllo",
+    "default_title": "Anti-CookieSheep - Pannello",
     "default_popup": "popup.html"
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "anti-cookiesheep@tuodominio.local",
+      "id": "anti-cookiesheep@kaelen-simple.local",
       "strict_min_version": "113.0"
     }
   },
   "permissions": [
     "declarativeNetRequest",
-    "storage"
+    "storage",
+    "privacy"
   ],
   "host_permissions": [
     "<all_urls>"
   ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
   "declarative_net_request": {
     "rule_resources": [
       {
-        "id": "blocco_tracker",
+        "id": "ruleset_1",
         "enabled": true,
         "path": "rules.json"
       }
@@ -38,8 +43,8 @@
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
-      "all_frames": true,
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "all_frames": true
     }
   ]
 }
