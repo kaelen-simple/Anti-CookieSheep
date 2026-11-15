@@ -47,7 +47,9 @@
       border-bottom: 1px solid #1e293b;
       font-size: 13px;
     }
-    .riga:last-child { border-bottom: none; }
+    .riga:last-child {
+      border-bottom: none;
+    }
     .btn-toggle {
       padding: 5px 13px;
       border: none;
@@ -56,8 +58,14 @@
       font-size: 12px;
       cursor: pointer;
     }
-    .si { background-color: #10b981; color: #052e16; }
-    .no { background-color: #ef4444; color: #ffffff; }
+    .si {
+      background-color: #10b981;
+      color: #052e16;
+    }
+    .no {
+      background-color: #ef4444;
+      color: #ffffff;
+    }
     .azioni-globali {
       display: flex;
       gap: 8px;
@@ -73,8 +81,12 @@
       cursor: pointer;
       color: #ffffff;
     }
-    #blocca-tutto { background-color: #0284c7; }
-    #consenti-tutto { background-color: #334155; }
+    #blocca-tutto {
+      background-color: #0284c7;
+    }
+    #consenti-tutto {
+      background-color: #334155;
+    }
   </style>
 </head>
 <body>
@@ -97,7 +109,7 @@
     <div class="riga"><span>📌 Pinterest Tag</span><button class="btn-toggle" data-id="pinterest">SÌ</button></div>
     <div class="riga"><span>👻 Snapchat Pixel</span><button class="btn-toggle" data-id="snapchat">SÌ</button></div>
     <div class="riga"><span>🪟 Microsoft / Bing</span><button class="btn-toggle" data-id="bing">SÌ</button></div>
-    <div class="riga"><span>🛒 Criteo / Taboola</span><button class="btn-toggle" data-id="criteo">SÌ</button></div>
+    <div class="riga"><span>🛒 Criteo / Taboola</span><button class="btn-toggle" data-id="ads">SÌ</button></div>
   </div>
 
   <div class="azioni-globali">
@@ -108,4 +120,3 @@
   <script src="popup.js"></script>
 </body>
 </html>
-
