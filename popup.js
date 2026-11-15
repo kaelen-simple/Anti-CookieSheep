@@ -1,31 +1,32 @@
-/* === CODESHEEP v1.2 - CONTROLLO RECINTI (SÌ/NO) === */
+/* === CODESHEEP v1.4 - CONTROLLO RECINTI (SÌ/NO) === */
 
 const mappaRecinti = {
-  meta: new Array(1, 2),
-  google: new Array(3, 4, 5),
-  tiktok: new Array(6),
-  linkedin: new Array(7),
-  pinterest: new Array(8, 9),
-  x: new Array(10, 11),
-  snapchat: new Array(12, 13),
-  bing: new Array(14),
-  ads: new Array(15, 16, 17)
+  meta:,
+  google:,
+  tiktok:,
+  linkedin:,
+  pinterest:,
+  x:,
+  snapchat:,
+  bing:,
+  ads: [15, 16, 17]
 };
 
-const gruppiTutti = new Array("cookie", "meta", "tiktok", "x", "google", "linkedin", "pinterest", "snapchat", "bing", "ads");
+const gruppiTutti = ["scudo", "cookie", "meta", "tiktok", "x", "google", "linkedin", "pinterest", "snapchat", "bing", "ads"];
 
 document.addEventListener('DOMContentLoaded', async () => {
   const dati = await chrome.storage.local.get('statoGregge');
-  let statoGregge = dati.statoGregge || {
-    cookie: true, meta: true, tiktok: true, x: true,
+  const predefiniti = {
+    scudo: true, cookie: true, meta: true, tiktok: true, x: true,
     google: true, linkedin: true, pinterest: true,
     snapchat: true, bing: true, ads: true
   };
+  let statoGregge = Object.assign({}, predefiniti, dati.statoGregge || {});
 
   const pulsanti = document.querySelectorAll('.btn-toggle');
 
   pulsanti.forEach(btn => {
-    const gruppo = btn.dataset.gruppo;
+    const gruppo = btn.dataset.gruppo || btn.dataset.id;
     aggiornaGrafica(btn, statoGregge[gruppo]);
 
     btn.addEventListener('click', async () => {
@@ -64,8 +65,8 @@ function aggiornaGrafica(btn, attivo) {
 }
 
 async function aggiornaRegoleRete(statoGregge) {
-  let daDisabilitare = new Array();
-  let daAbilitare = new Array();
+  let daDisabilitare = [];
+  let daAbilitare = [];
 
   for (const [gruppo, ids] of Object.entries(mappaRecinti)) {
     if (statoGregge[gruppo]) {
@@ -75,9 +76,15 @@ async function aggiornaRegoleRete(statoGregge) {
     }
   }
 
+  await chrome.declarativeNetRequest.updateEnabledRulesets({
+    enableRulesetIds: ["ruleset_1"]
+  });
+
   await chrome.declarativeNetRequest.updateStaticRules({
-    rulesetId: "blocco_tracker",
+    rulesetId: "ruleset_1",
     disableRuleIds: daDisabilitare,
     enableRuleIds: daAbilitare
   });
 }
+
+
