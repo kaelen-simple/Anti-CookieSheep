@@ -43,13 +43,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
+      padding: 7px 0;
       border-bottom: 1px solid #1e293b;
       font-size: 13px;
     }
     .riga:last-child { border-bottom: none; }
     .btn-toggle {
-      padding: 6px 14px;
+      padding: 5px 13px;
       border: none;
       border-radius: 12px;
       font-weight: bold;
@@ -81,12 +81,13 @@
   <div class="intestazione">
     <img src="preview.png" alt="Logo">
     <div>
-      <h2>Anti-CookieSheep</h2>
-      <div class="sub">SÌ = Bloccato | NO = Consentito</div>
+      <h2>Anti-CookieSheep v1.4</h2>
+      <div class="sub">SÌ = Attivo/Bloccato | NO = Spento</div>
     </div>
   </div>
 
   <div id="lista-recinti">
+    <div class="riga"><span>👻 Scudo IP, HTTPS & Link</span><button class="btn-toggle" data-id="scudo">SÌ</button></div>
     <div class="riga"><span>🍪 Rifiuto Cookie Auto</span><button class="btn-toggle" data-id="cookie">SÌ</button></div>
     <div class="riga"><span>📘 Meta Pixel (FB/IG)</span><button class="btn-toggle" data-id="meta">SÌ</button></div>
     <div class="riga"><span>🎵 TikTok Pixel</span><button class="btn-toggle" data-id="tiktok">SÌ</button></div>
@@ -107,3 +108,4 @@
   <script src="popup.js"></script>
 </body>
 </html>
+
